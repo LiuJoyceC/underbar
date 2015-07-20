@@ -190,6 +190,21 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+
+    // Write code here:
+    // Makes a copy of collection so that the original collection passed in does not get altered.
+    var collCopy = collection.slice();
+    // If accumulator not defined, assigned to first element of collection,
+    // and takes that first element out of the collection
+    accumulator = (accumulator === undefined) ? collCopy.shift() : accumulator;
+
+    _.each(collCopy, function(item) {
+      accumulator = iterator(accumulator, item);
+    });
+
+    return accumulator;
+    // end
+
   };
 
   // Determine if the array or object contains a given value (using `===`).
