@@ -118,7 +118,20 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+  _.uniq = function(array) { // all tests passed!
+
+    // Write code here:
+    var result = [];
+
+    _.each(array, function(item) {
+      if (_.indexOf(result,item) === -1) {
+        result.push(item);
+      }
+    })
+
+    return result;
+    // end
+
   };
 
 
