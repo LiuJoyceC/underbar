@@ -46,6 +46,7 @@
     // Write code here:
     return n === undefined ? array[array.length - 1] : array.slice(Math.max(array.length - n, 0));
     // end
+
   };
 
   // Call iterator(value, key, collection) for each element of collection.
@@ -53,12 +54,27 @@
   //
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
-  _.each = function(collection, iterator) {
+  _.each = function(collection, iterator) { // all tests passed!
+
+    // Write code here:
+    var key;
+    // Will use for loop if collection is an array, else will use for-in loop for object
+    if (Array.isArray(collection)) {
+      for (key = 0; key < collection.length; key++) {
+        iterator(collection[key], key, collection);
+      }
+    } else {
+      for (key in collection) {
+        iterator(collection[key], key, collection);
+      }
+    }
+    // end
+
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
-  _.indexOf = function(array, target){
+  _.indexOf = function(array, target){ // all tests passed!
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
