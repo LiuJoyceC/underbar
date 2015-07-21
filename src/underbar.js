@@ -286,12 +286,27 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {
+  _.extend = function(obj) { // all tests passed!
+    // Write code here:
+    return _.reduce(arguments, function(to, from) {
+      for (var key in from) {
+        to[key] = from[key];
+      }
+      return to;
+    });
+    // end
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {
+  _.defaults = function(obj) { // all tests passed!
+    // Write code here:
+    // The inner _.extend returns an object identical to what we want, but fails the
+    // strict equality test to obj when obj and all other arguments are empty objects
+    // (test case 1). This is resolved with the outer call to _.extend.
+    // [].slice.apply(arguements) converts arguments into a true array.
+    return _.extend(obj, _.extend.apply(null,[].slice.apply(arguments).reverse()));
+    // end
   };
 
 
