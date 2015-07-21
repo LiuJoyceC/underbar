@@ -246,7 +246,7 @@
 
 
   // Determine whether all of the elements match a truth test.
-  _.every = function(collection, iterator) {
+  _.every = function(collection, iterator) { // all tests passed!
     // TIP: Try re-using reduce() here.
     // Write code here:
     iterator  = iterator || _.identity;
@@ -259,8 +259,12 @@
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function(collection, iterator) {
+  _.some = function(collection, iterator) { // all tests passed!
     // TIP: There's a very clever way to re-use every() here.
+    // Write code here:
+    iterator = iterator || _.identity;
+    return !_.every(collection, function(val) {return !iterator(val);});
+    // end
   };
 
 
