@@ -189,9 +189,12 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
-  _.reduce = function(collection, iterator, accumulator) {
+  _.reduce = function(collection, iterator, accumulator) { // all tests passed!
 
     // Write code here:
+
+    /* Old code, which only worked if collection is array:
+
     // Makes a copy of collection so that the original collection passed in does not get altered.
     var collCopy = collection.slice();
     // If accumulator not defined, assigned to first element of collection,
@@ -202,13 +205,35 @@
       accumulator = iterator(accumulator, item);
     });
 
+    return accumulator; */
+
+    //New code, which works with both arrays and objects:
+    var excludeKey;
+    if (accumulator === undefined) {
+      if (Array.isArray(collection)) {
+        excludeKey = 0;
+      } else {
+        for (var firstKey in collection) {
+          excludeKey = firstKey;
+          break;
+        }
+      }
+      accumulator = collection[excludeKey];
+    }
+
+    _.each(collection, function(item, key) {
+      if (key !== excludeKey) {
+        accumulator = iterator(accumulator, item);
+      }
+    });
+
     return accumulator;
     // end
 
   };
 
   // Determine if the array or object contains a given value (using `===`).
-  _.contains = function(collection, target) {
+  _.contains = function(collection, target) { // all tests passed! (Had to modify _.reduce)
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
     return _.reduce(collection, function(wasFound, item) {
