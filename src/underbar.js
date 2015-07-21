@@ -374,7 +374,15 @@
   // The arguments for the original function are passed after the wait
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
-  _.delay = function(func, wait) {
+  _.delay = function(func, wait) { // all tests passed!
+    // Write code here:
+    // In most browsers other than IE9 (or older), it works to simply invoke:
+    //                setTimeout.apply(this,arguments);
+    // But in order to make this work in IE9, I will write the code like this:
+    var args = [].slice.call(arguments,2);
+    var wrapper = function() {func.apply(this,args);};
+    setTimeout(wrapper,wait);
+    // end
   };
 
 
