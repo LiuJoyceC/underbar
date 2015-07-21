@@ -304,8 +304,8 @@
     // The inner _.extend returns an object identical to what we want, but fails the
     // strict equality test to obj when obj and all other arguments are empty objects
     // (test case 1). This is resolved with the outer call to _.extend.
-    // [].slice.apply(arguements) converts arguments into a true array.
-    return _.extend(obj, _.extend.apply(null,[].slice.apply(arguments).reverse()));
+    // [].reverse.apply(arguments) reverses order of arguments.
+    return _.extend(obj, _.extend.apply(null,[].reverse.apply(arguments)));
     // end
   };
 
@@ -320,7 +320,7 @@
 
   // Return a function that can be called at most one time. Subsequent calls
   // should return the previously returned value.
-  _.once = function(func) {
+  _.once = function(func) { // all tests passed!
     // TIP: These variables are stored in a "closure scope" (worth researching),
     // so that they'll remain available to the newly-generated function every
     // time it's called.
