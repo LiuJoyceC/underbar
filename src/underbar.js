@@ -470,7 +470,7 @@
 
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
+  _.invoke = function(collection, functionOrKey, args) { // all tests passed!
     // Write code here:
     args = args || [];
     var result = [];
@@ -488,7 +488,7 @@
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
-  _.sortBy = function(collection, iterator) {
+  _.sortBy = function(collection, iterator) { // all tests passes!
     // Write code here:
     if (collection.length === 0) {return [];}
 
@@ -522,23 +522,59 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var result = [];
+    var args = [].slice.apply(arguments);
+    _.each(args, function(array, argsInd) {
+      _.each(array, function(val, arrayInd) {
+        if (result[arrayInd] === undefined) {
+          result[arrayInd] = [];
+          result[arrayInd].length = args.length;
+        }
+
+        result[arrayInd][argsInd] = val;
+      });
+    });
+    return result;
   };
 
-  // Takes a multidimensional array and converts it to a one-dimensional array.
+  // Takes a multidimensional ar99ray and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray, result) {
+  _.flatten = function(nestedArray, result) { // all tests passed!
+    result = result || [];
+    _.each(nestedArray, function(val) {
+      if (Array.isArray(val)) {
+        _.flatten(val, result);
+      } else {
+        result.push(val);
+      }
+    })
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function() {
+  _.intersection = function() { // all tests passed!
+    var args = [].slice.apply(arguments);
+
+    return _.filter(args[0], function(val) {
+      return _.every(args.slice(1), function(array) {
+        return _.contains(array, val);
+      })
+    })
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
-  _.difference = function(array) {
+  _.difference = function(array) { // all tests passed!
+    var args = [].slice.apply(arguments);
+
+    return _.reject(array, function(val) {
+      return _.some(args.slice(1), function(collection) {
+        return _.contains(collection, val);
+      })
+    })
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
